@@ -711,6 +711,8 @@ def mostrar_graficos(processor, df_filtrado: pd.DataFrame, debug_mode: bool = Fa
                                 titulo_seccion="🎯 Detalle de Pedidos por Cumplimiento")
         else:
             st.caption("💡 Haz clic en una rodaja para ver el detalle")
+            with st.expander("💡 Ver Interpretación"):
+                st.markdown("La proporción verde indica la salud de las entregas. Si la porción roja o ámbar supera el 5%, existen problemas serios de SLA en este período.")
 
     with col2:
         st.markdown("### 📊 Desvíos en Despacho vs Entrega")
@@ -734,6 +736,8 @@ def mostrar_graficos(processor, df_filtrado: pd.DataFrame, debug_mode: bool = Fa
         ))
         fig2.update_layout(**fig_base(), yaxis_title='Pedidos', showlegend=False)
         st.plotly_chart(fig2, use_container_width=True)
+        with st.expander("💡 Ver Interpretación"):
+            st.markdown("Compara visualmente dónde ocurren los cuellos de botella: ¿Nos demoramos en despachar desde el almacén, o la transportadora se demora en entregar?")
 
     # ── FILA 2: Cumplimiento por Ciudad (Top 12) ──
     st.markdown("### 📍 Cumplimiento por Ciudad (Top 12)")
@@ -770,6 +774,9 @@ def mostrar_graficos(processor, df_filtrado: pd.DataFrame, debug_mode: bool = Fa
                                 titulo_seccion="📍 Detalle de Pedidos por Ciudad")
         else:
             st.caption("💡 Haz clic en una barra para ver detalle")
+            
+        with st.expander("💡 Ver Interpretación"):
+            st.markdown("Las ciudades por debajo de la línea punteada (95%) requieren planes de acción focalizados con las transportadoras locales.")
 
     # ── FILA 3: Transportadora + Área Responsable ──
     col3, col4 = st.columns(2)
@@ -812,6 +819,9 @@ def mostrar_graficos(processor, df_filtrado: pd.DataFrame, debug_mode: bool = Fa
                                     titulo_seccion="🚚 Detalle de Pedidos por Transportadora")
             else:
                 st.caption("💡 Haz clic en una barra para ver detalle")
+                
+            with st.expander("💡 Ver Interpretación"):
+                st.markdown("Evalúa qué aliado logístico está fallando más. Barras rojas cortas son transportadoras con poco volumen pero pésimo servicio; barras rojas largas indican un problema crítico de capacidad.")
 
     with col4:
         st.markdown("### 🏢 Responsabilidad del Incumplimiento")
@@ -840,6 +850,9 @@ def mostrar_graficos(processor, df_filtrado: pd.DataFrame, debug_mode: bool = Fa
                                     titulo_seccion="🏢 Detalle de Responsabilidad")
             else:
                 st.caption("💡 Haz clic para ver detalle del área")
+                
+            with st.expander("💡 Ver Interpretación"):
+                st.markdown("Identifica si el incumplimiento es culpa externa (Transportadora) o interna (Almacén, Comercial). Ayuda a dirigir los reclamos al departamento correcto.")
         else:
             st.success("🎉 Sin incumplimientos en el período seleccionado.")
 
@@ -882,6 +895,8 @@ def mostrar_graficos(processor, df_filtrado: pd.DataFrame, debug_mode: bool = Fa
         })
         fig6.update_layout(**layout)
         st.plotly_chart(fig6, use_container_width=True)
+        with st.expander("💡 Ver Interpretación"):
+            st.markdown("Si la tendencia es decreciente, los procesos logísticos están empeorando mes a mes. La línea debe mantenerse por encima de la meta del 95%.")
     else:
         st.info("ℹ️ Selecciona más de un mes para ver la tendencia temporal.")
 
@@ -928,6 +943,8 @@ def mostrar_graficos(processor, df_filtrado: pd.DataFrame, debug_mode: bool = Fa
                 xaxis_tickangle=-45  # Rotar etiquetas X para mejor legibilidad
             )
             st.plotly_chart(fig_pareto, use_container_width=True)
+            with st.expander("💡 Ver Interpretación"):
+                st.markdown("Regla del 80/20: Enfócate en solucionar las 2 o 3 primeras barras (causas principales) y resolverás el 80% de los problemas logísticos.")
             
             # Insight automático basado en la causa principal
             top_causa = causas.iloc[0]
@@ -992,6 +1009,8 @@ def mostrar_graficos(processor, df_filtrado: pd.DataFrame, debug_mode: bool = Fa
     fig_cat.add_vline(x=80, line_dash='dash', line_color=COLOR_PTE, annotation_text='Meta 80%')
         
     st.plotly_chart(fig_cat, use_container_width=True)
+    with st.expander("💡 Ver Interpretación"):
+        st.markdown("Ayuda a detectar si ciertos tipos de productos (ej. voluminosos) son más propensos a sufrir retrasos que otros.")
         
         # Tabla interactiva con formato personalizado
     st.dataframe(
@@ -1345,6 +1364,8 @@ def mostrar_graficos_avanzados(processor, df_filtrado: pd.DataFrame) -> None:
         )
         fig1.update_layout(**fig_base(), showlegend=False)
         st.plotly_chart(fig1, use_container_width=True)
+        with st.expander("💡 Ver Interpretación"):
+            st.markdown("Cajas anchas indican inconsistencia (a veces rápidos, a veces lentos). Puntos fuera de la caja son entregas anormalmente demoradas.")
     else:
         st.info("Faltan datos de Días de Entrega o Transportadora para este análisis.")
 
@@ -1369,6 +1390,8 @@ def mostrar_graficos_avanzados(processor, df_filtrado: pd.DataFrame) -> None:
                 )
                 fig2.update_layout(**fig_base(), yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
                 st.plotly_chart(fig2, use_container_width=True)
+                with st.expander("💡 Ver Interpretación"):
+                    st.markdown("Lista prioritaria para el equipo Comercial/Servicio al Cliente. Estos clientes están experimentando la peor calidad de servicio.")
             else:
                 st.success("No hay clientes afectados en esta selección.")
     
@@ -1395,6 +1418,8 @@ def mostrar_graficos_avanzados(processor, df_filtrado: pd.DataFrame) -> None:
             )
             fig3.update_layout(**fig_base())
             st.plotly_chart(fig3, use_container_width=True)
+            with st.expander("💡 Ver Interpretación"):
+                st.markdown("Celdas rojas marcan zonas donde una transportadora falla sistemáticamente. Útil para decidir qué empresa debe cubrir cada ciudad.")
 
     st.markdown("---")
 
@@ -1418,6 +1443,8 @@ def mostrar_graficos_avanzados(processor, df_filtrado: pd.DataFrame) -> None:
                 )
                 fig4.update_layout(**fig_base())
                 st.plotly_chart(fig4, use_container_width=True)
+                with st.expander("💡 Ver Interpretación"):
+                    st.markdown("Puntos grandes en la parte alta del gráfico representan mucho dinero retenido en tránsito por muchos días. ¡Alerta máxima!")
             else:
                 st.info("No hay datos de valor financiero.")
 
@@ -1438,6 +1465,8 @@ def mostrar_graficos_avanzados(processor, df_filtrado: pd.DataFrame) -> None:
                 fig5.add_hline(y=95, line_dash="dash", annotation_text="Meta 95%", line_color=COLOR_CUMPLE)
                 fig5.update_layout(**fig_base(), title="Evolución y Meta de Cumplimiento")
                 st.plotly_chart(fig5, use_container_width=True)
+                with st.expander("💡 Ver Interpretación"):
+                    st.markdown("Mide el desempeño histórico frente a la meta (95%). Útil para evaluar el impacto a largo plazo de las decisiones operativas.")
             else:
                 st.info("Se necesitan datos de varios meses para ver tendencias.")
 
@@ -1457,6 +1486,10 @@ def mostrar_graficos_avanzados(processor, df_filtrado: pd.DataFrame) -> None:
             )
             fig6.update_layout(margin=dict(t=50, l=10, r=10, b=10))
             st.plotly_chart(fig6, use_container_width=True)
+            with st.expander("💡 Ver Interpretación"):
+                st.markdown("Cuadros grandes = mucho volumen. Colores rojos = mala calidad de entrega. Busca los cuadros grandes y rojos para un impacto rápido.")
+        with st.expander("💡 Ver Interpretación"):
+            st.markdown("Si la tendencia es decreciente, los procesos logísticos están empeorando mes a mes. La línea debe mantenerse por encima de la meta del 95%.")
 
 
 # ──────────────────────────────────────────────────────────────────────────
