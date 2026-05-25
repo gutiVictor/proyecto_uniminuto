@@ -1,0 +1,167 @@
+2026-05-24 18:52:58,297 - INFO - 🚀 Aplicación TECU Dashboard iniciada
+2026-05-24 18:53:29,017 - INFO - 🚀 Aplicación TECU Dashboard iniciada
+2026-05-24 18:53:29,019 - INFO - Iniciando procesamiento con SLA: almacén=1, principal=3, otras=5
+2026-05-24 18:53:29,020 - INFO - Iniciando carga de archivo: Seguimiento gestion despachos TECU 2026 Indicadores.xlsx
+2026-05-24 18:53:29,155 - INFO - Hoja detectada: Base Ventas
+2026-05-24 18:53:29,211 - INFO - Fila de encabezado detectada: 3
+2026-05-24 18:53:29,278 - INFO - DataFrame cargado: 186 filas, 26 columnas
+2026-05-24 18:53:29,332 - INFO - Procesamiento completado: 166 registros válidos
+2026-05-24 18:53:29,347 - INFO - Filtros aplicados: 154 registros de 166 totales
+2026-05-24 18:53:29,433 - ERROR - Error generando reporte avanzado: "Label(s) ['No orden'] do not exist"
+Traceback (most recent call last):
+  File "/media/victor/WvsL/WEB/tecu_analisis/app.py", line 1411, in main
+    mega_buf = generate_report_advanced(df_filtrado, ind_filtrado, ind_global, processor)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/victor/WvsL/WEB/tecu_analisis/app.py", line 1291, in generate_report_advanced
+    cat_analysis = df_filtrado.groupby('Categoria').agg({
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/groupby/generic.py", line 2291, in aggregate
+    result = op.agg()
+             ^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 294, in agg
+    return self.agg_dict_like()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 511, in agg_dict_like
+    return self.agg_or_apply_dict_like(op_name="agg")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 1677, in agg_or_apply_dict_like
+    result_index, result_data = self.compute_dict_like(
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 550, in compute_dict_like
+    func = self.normalize_dictlike_arg(op_name, selected_obj, func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 762, in normalize_dictlike_arg
+    raise KeyError(f"Label(s) {list(cols)} do not exist")
+KeyError: "Label(s) ['No orden'] do not exist"
+2026-05-24 19:13:07,611 - INFO - 🚀 Aplicación TECU Dashboard iniciada
+2026-05-24 19:15:16,521 - INFO - 🚀 Aplicación TECU Dashboard iniciada
+2026-05-24 19:18:58,927 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:19:23,107 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:19:23,109 - INFO - Iniciando procesamiento con SLA: almacén=1, principal=3, otras=5
+2026-05-24 19:19:23,110 - INFO - Iniciando carga de archivo: Seguimiento gestion despachos TECU 2026 Indicadores.xlsx
+2026-05-24 19:19:23,203 - INFO - Hoja detectada: Base Ventas
+2026-05-24 19:19:23,249 - INFO - Fila de encabezado detectada: 3
+2026-05-24 19:19:23,313 - INFO - DataFrame cargado: 186 filas, 26 columnas
+2026-05-24 19:19:23,338 - INFO - Procesamiento completado: 166 registros válidos
+2026-05-24 19:19:23,347 - INFO - Filtros aplicados: 154 registros de 166 totales
+2026-05-24 19:19:23,428 - ERROR - Error generando reporte avanzado: "Label(s) ['No orden'] do not exist"
+Traceback (most recent call last):
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1411, in main
+    mega_buf = generate_report_advanced(df_filtrado, ind_filtrado, ind_global, processor)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1291, in generate_report_advanced
+    cat_analysis = df_filtrado.groupby('Categoria').agg({
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/groupby/generic.py", line 2291, in aggregate
+    result = op.agg()
+             ^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 294, in agg
+    return self.agg_dict_like()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 511, in agg_dict_like
+    return self.agg_or_apply_dict_like(op_name="agg")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 1677, in agg_or_apply_dict_like
+    result_index, result_data = self.compute_dict_like(
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 550, in compute_dict_like
+    func = self.normalize_dictlike_arg(op_name, selected_obj, func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 762, in normalize_dictlike_arg
+    raise KeyError(f"Label(s) {list(cols)} do not exist")
+KeyError: "Label(s) ['No orden'] do not exist"
+2026-05-24 19:21:19,965 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:21:19,968 - INFO - Iniciando procesamiento con SLA: almacén=1, principal=3, otras=5
+2026-05-24 19:21:19,983 - INFO - Cache limpiado por usuario - App reiniciada
+2026-05-24 19:21:20,044 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:21:20,045 - INFO - Iniciando procesamiento con SLA: almacén=1, principal=3, otras=5
+2026-05-24 19:21:20,047 - INFO - Iniciando carga de archivo: Seguimiento gestion despachos TECU 2026 Indicadores.xlsx
+2026-05-24 19:21:20,093 - INFO - Hoja detectada: Base Ventas
+2026-05-24 19:21:20,136 - INFO - Fila de encabezado detectada: 3
+2026-05-24 19:21:20,203 - INFO - DataFrame cargado: 186 filas, 26 columnas
+2026-05-24 19:21:20,226 - INFO - Procesamiento completado: 166 registros válidos
+2026-05-24 19:21:20,235 - INFO - Filtros aplicados: 154 registros de 166 totales
+2026-05-24 19:21:20,313 - ERROR - Error generando reporte avanzado: "Label(s) ['No orden'] do not exist"
+Traceback (most recent call last):
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1411, in main
+    mega_buf = generate_report_advanced(df_filtrado, ind_filtrado, ind_global, processor)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1291, in generate_report_advanced
+    cat_analysis = df_filtrado.groupby('Categoria').agg({
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/groupby/generic.py", line 2291, in aggregate
+    result = op.agg()
+             ^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 294, in agg
+    return self.agg_dict_like()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 511, in agg_dict_like
+    return self.agg_or_apply_dict_like(op_name="agg")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 1677, in agg_or_apply_dict_like
+    result_index, result_data = self.compute_dict_like(
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 550, in compute_dict_like
+    func = self.normalize_dictlike_arg(op_name, selected_obj, func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 762, in normalize_dictlike_arg
+    raise KeyError(f"Label(s) {list(cols)} do not exist")
+KeyError: "Label(s) ['No orden'] do not exist"
+2026-05-24 19:21:26,475 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:21:26,477 - INFO - Iniciando procesamiento con SLA: almacén=1, principal=3, otras=5
+2026-05-24 19:21:26,485 - INFO - Filtros aplicados: 154 registros de 166 totales
+2026-05-24 19:21:26,567 - ERROR - Error generando reporte avanzado: "Label(s) ['No orden'] do not exist"
+Traceback (most recent call last):
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1411, in main
+    mega_buf = generate_report_advanced(df_filtrado, ind_filtrado, ind_global, processor)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1291, in generate_report_advanced
+    cat_analysis = df_filtrado.groupby('Categoria').agg({
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/groupby/generic.py", line 2291, in aggregate
+    result = op.agg()
+             ^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 294, in agg
+    return self.agg_dict_like()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 511, in agg_dict_like
+    return self.agg_or_apply_dict_like(op_name="agg")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 1677, in agg_or_apply_dict_like
+    result_index, result_data = self.compute_dict_like(
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 550, in compute_dict_like
+    func = self.normalize_dictlike_arg(op_name, selected_obj, func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 762, in normalize_dictlike_arg
+    raise KeyError(f"Label(s) {list(cols)} do not exist")
+KeyError: "Label(s) ['No orden'] do not exist"
+2026-05-24 19:21:30,131 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:21:30,133 - INFO - Iniciando procesamiento con SLA: almacén=1, principal=3, otras=5
+2026-05-24 19:21:30,144 - INFO - Filtros aplicados: 53 registros de 166 totales
+2026-05-24 19:21:30,185 - ERROR - Error generando reporte avanzado: "Label(s) ['No orden'] do not exist"
+Traceback (most recent call last):
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1411, in main
+    mega_buf = generate_report_advanced(df_filtrado, ind_filtrado, ind_global, processor)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1291, in generate_report_advanced
+    cat_analysis = df_filtrado.groupby('Categoria').agg({
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/groupby/generic.py", line 2291, in aggregate
+    result = op.agg()
+             ^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 294, in agg
+    return self.agg_dict_like()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 511, in agg_dict_like
+    return self.agg_or_apply_dict_like(op_name="agg")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 1677, in agg_or_apply_dict_like
+    result_index, result_data = self.compute_dict_like(
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 550, in compute_dict_like
+    func = self.normalize_dictlike_arg(op_name, selected_obj, func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 762, in normalize_dictlike_arg
+    raise KeyError(f"Label(s) {list(cols)} do not exist")
+KeyError: "Label(s) ['No orden'] do not exist"
