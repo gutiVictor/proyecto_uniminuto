@@ -165,3 +165,34 @@ Traceback (most recent call last):
   File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 762, in normalize_dictlike_arg
     raise KeyError(f"Label(s) {list(cols)} do not exist")
 KeyError: "Label(s) ['No orden'] do not exist"
+2026-05-24 19:32:15,185 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:33:56,956 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:34:00,141 - INFO - 🚀 Aplicación NEXO Dashboard iniciada
+2026-05-24 19:34:00,142 - INFO - Iniciando procesamiento con SLA: almacén=1, principal=3, otras=5
+2026-05-24 19:34:00,151 - INFO - Filtros aplicados: 154 registros de 166 totales
+2026-05-24 19:34:00,231 - ERROR - Error generando reporte avanzado: "Label(s) ['No orden'] do not exist"
+Traceback (most recent call last):
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1552, in main
+    mega_buf = generate_report_advanced(df_filtrado, ind_filtrado, ind_global, processor)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/victor/WvsL/WEB/proyecto_uniminuto/app.py", line 1291, in generate_report_advanced
+    cat_analysis = df_filtrado.groupby('Categoria').agg({
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/groupby/generic.py", line 2291, in aggregate
+    result = op.agg()
+             ^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 294, in agg
+    return self.agg_dict_like()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 511, in agg_dict_like
+    return self.agg_or_apply_dict_like(op_name="agg")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 1677, in agg_or_apply_dict_like
+    result_index, result_data = self.compute_dict_like(
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 550, in compute_dict_like
+    func = self.normalize_dictlike_arg(op_name, selected_obj, func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/victor/.local/lib/python3.12/site-packages/pandas/core/apply.py", line 762, in normalize_dictlike_arg
+    raise KeyError(f"Label(s) {list(cols)} do not exist")
+KeyError: "Label(s) ['No orden'] do not exist"

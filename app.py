@@ -1319,6 +1319,147 @@ def generate_report_advanced(
 
 
 # ──────────────────────────────────────────────────────────────────────────
+# 🔬 MÓDULO DE ANÁLISIS AVANZADO
+# ──────────────────────────────────────────────────────────────────────────
+def mostrar_graficos_avanzados(processor, df_filtrado: pd.DataFrame) -> None:
+    st.markdown("## 🔬 Análisis Avanzado NEXO")
+    st.markdown("Este módulo proporciona análisis profundo utilizando estadística y cruce de variables complejas.")
+    
+    if len(df_filtrado) == 0:
+        st.warning("No hay datos suficientes para el análisis avanzado.")
+        return
+
+    # 1. Distribución y Variabilidad (Boxplot)
+    st.markdown("### 📦 Distribución de Tiempos de Entrega por Transportadora")
+    st.markdown("Muestra la consistencia en los tiempos de entrega. Los puntos fuera de las cajas representan casos atípicos (entregas muy demoradas).")
+    
+    if 'Dias_Entrega_Hab' in df_filtrado.columns and 'Transportadora' in df_filtrado.columns:
+        fig1 = px.box(
+            df_filtrado.dropna(subset=['Dias_Entrega_Hab', 'Transportadora']),
+            x='Transportadora', 
+            y='Dias_Entrega_Hab',
+            color='Transportadora',
+            template=PLOTLY_TEMPLATE,
+            points="all",
+            title="Variabilidad de Tiempos de Entrega (Días Hábiles)"
+        )
+        fig1.update_layout(**fig_base(), showlegend=False)
+        st.plotly_chart(fig1, use_container_width=True)
+    else:
+        st.info("Faltan datos de Días de Entrega o Transportadora para este análisis.")
+
+    st.markdown("---")
+    
+    # 2 & 3: Impacto Comercial y Matriz Cruzada
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("### 💼 Impacto Comercial (Top Clientes Afectados)")
+        if 'Cliente' in df_filtrado.columns and 'Cumple_NNS' in df_filtrado.columns:
+            df_inc = df_filtrado[df_filtrado['Cumple_NNS'] == 'No cumple']
+            if len(df_inc) > 0:
+                top_clientes = df_inc['Cliente'].value_counts().reset_index().head(10)
+                top_clientes.columns = ['Cliente', 'Pedidos Incumplidos']
+                fig2 = px.bar(
+                    top_clientes, x='Pedidos Incumplidos', y='Cliente',
+                    orientation='h',
+                    color='Pedidos Incumplidos',
+                    color_continuous_scale=['#F59E0B', '#F43F5E'],
+                    template=PLOTLY_TEMPLATE,
+                    title="Top 10 Clientes con Mayor Afectación"
+                )
+                fig2.update_layout(**fig_base(), yaxis={'categoryorder':'total ascending'}, coloraxis_showscale=False)
+                st.plotly_chart(fig2, use_container_width=True)
+            else:
+                st.success("No hay clientes afectados en esta selección.")
+    
+    with col2:
+        st.markdown("### 🔀 Rendimiento Cruzado (Ciudad vs Transportadora)")
+        if 'Ciudad' in df_filtrado.columns and 'Transportadora' in df_filtrado.columns and 'Cumple_NNS' in df_filtrado.columns:
+            top_ciudades = df_filtrado['Ciudad'].value_counts().head(10).index.tolist()
+            df_heat = df_filtrado[df_filtrado['Ciudad'].isin(top_ciudades)]
+            
+            pivot = pd.crosstab(
+                df_heat['Transportadora'], 
+                df_heat['Ciudad'], 
+                values=df_heat['Cumple_NNS'] == 'Cumple',
+                aggfunc='mean'
+            ).fillna(0) * 100
+            
+            fig3 = px.imshow(
+                pivot,
+                text_auto=".1f",
+                aspect="auto",
+                color_continuous_scale=['#F43F5E', '#F59E0B', '#10B981'],
+                template=PLOTLY_TEMPLATE,
+                title="Heatmap: % Cumplimiento (Top 10 Ciudades)"
+            )
+            fig3.update_layout(**fig_base())
+            st.plotly_chart(fig3, use_container_width=True)
+
+    st.markdown("---")
+
+    # 4 & 5: Correlación Financiera y Predictiva
+    col3, col4 = st.columns(2)
+    with col3:
+        st.markdown("### 💰 Riesgo Financiero (Monto vs Retraso)")
+        if 'Valor_num' in df_filtrado.columns and 'Dias_Entrega_Hab' in df_filtrado.columns:
+            df_val = df_filtrado[df_filtrado['Valor_num'] > 0]
+            if len(df_val) > 0:
+                fig4 = px.scatter(
+                    df_val,
+                    x='Valor_num', 
+                    y='Dias_Entrega_Hab',
+                    color='Cumple_NNS',
+                    color_discrete_map={'Cumple': COLOR_CUMPLE, 'No cumple': COLOR_NO_CUMPLE, 'PTE': COLOR_PTE},
+                    size='Valor_num',
+                    hover_data=['Cliente', 'Ciudad', 'No_Orden'],
+                    template=PLOTLY_TEMPLATE,
+                    title="Correlación: Valor del Pedido vs Días de Entrega"
+                )
+                fig4.update_layout(**fig_base())
+                st.plotly_chart(fig4, use_container_width=True)
+            else:
+                st.info("No hay datos de valor financiero.")
+
+    with col4:
+        st.markdown("### 📈 Proyección y Tendencia")
+        if 'Mes_Sort' in df_filtrado.columns and 'Mes_Label' in df_filtrado.columns:
+            analisis_mes = processor.get_analisis_mes(df_filtrado)
+            if len(analisis_mes) > 1:
+                fig5 = go.Figure()
+                fig5.add_trace(go.Scatter(
+                    x=analisis_mes['Mes_Label'], 
+                    y=analisis_mes['Pct_Cumplimiento'],
+                    mode='lines+markers',
+                    name='% Cumplimiento',
+                    line=dict(color=COLOR_PRIMARY, width=3),
+                    marker=dict(size=8)
+                ))
+                fig5.add_hline(y=95, line_dash="dash", annotation_text="Meta 95%", line_color=COLOR_CUMPLE)
+                fig5.update_layout(**fig_base(), title="Evolución y Meta de Cumplimiento")
+                st.plotly_chart(fig5, use_container_width=True)
+            else:
+                st.info("Se necesitan datos de varios meses para ver tendencias.")
+
+    st.markdown("---")
+    st.markdown("### 🗺️ Concentración Geográfica (Mapa Treemap)")
+    if 'Ciudad' in df_filtrado.columns:
+        df_tree = df_filtrado.groupby(['Ciudad', 'Cumple_NNS']).size().reset_index(name='Cantidad')
+        if len(df_tree) > 0:
+            fig6 = px.treemap(
+                df_tree, 
+                path=[px.Constant("NEXO Colombia"), 'Ciudad', 'Cumple_NNS'], 
+                values='Cantidad',
+                color='Cumple_NNS',
+                color_discrete_map={'Cumple': COLOR_CUMPLE, 'No cumple': COLOR_NO_CUMPLE, 'PTE': COLOR_PTE, '(?)':'#333333'},
+                template=PLOTLY_TEMPLATE,
+                title="Distribución de Pedidos por Ciudad y Cumplimiento"
+            )
+            fig6.update_layout(margin=dict(t=50, l=10, r=10, b=10))
+            st.plotly_chart(fig6, use_container_width=True)
+
+
+# ──────────────────────────────────────────────────────────────────────────
 # 🚀 FUNCIÓN PRINCIPAL: ORQUESTACIÓN DEL DASHBOARD
 # ──────────────────────────────────────────────────────────────────────────
 def main():
@@ -1452,22 +1593,29 @@ def main():
     mostrar_kpis(ind_global, indicadores, etiqueta)
     st.markdown("---")
 
-    # ── RENDERIZAR GRÁFICOS INTERACTIVOS ──
-    mostrar_graficos(processor, df_filtrado, debug_mode)
-    st.markdown("---")
+    # ── SISTEMA DE PESTAÑAS (TABS) ──
+    tab1, tab2 = st.tabs(["📊 Dashboard General", "🔬 Análisis Avanzado NEXO"])
 
-    # ── RENDERIZAR SISTEMA DE ALERTAS PROACTIVAS (NUEVO) ──
-    st.markdown("### 🚨 Alertas Automáticas")
-    alertas = generar_alertas(df_filtrado, indicadores)
-    mostrar_alertas(alertas)
-    st.markdown("---")
+    with tab1:
+        # ── RENDERIZAR GRÁFICOS INTERACTIVOS ──
+        mostrar_graficos(processor, df_filtrado, debug_mode)
+        st.markdown("---")
 
-    # ── RENDERIZAR RECOMENDACIONES AUTOMATIZADAS ──
-    mostrar_recomendaciones(processor, df_filtrado)
-    st.markdown("---")
+        # ── RENDERIZAR SISTEMA DE ALERTAS PROACTIVAS (NUEVO) ──
+        st.markdown("### 🚨 Alertas Automáticas")
+        alertas = generar_alertas(df_filtrado, indicadores)
+        mostrar_alertas(alertas)
+        st.markdown("---")
 
-    # ── RENDERIZAR TABLA DE DETALLE CON SUB-FILTROS ──
-    mostrar_tabla_detalle(processor, df_filtrado)
+        # ── RENDERIZAR RECOMENDACIONES AUTOMATIZADAS ──
+        mostrar_recomendaciones(processor, df_filtrado)
+        st.markdown("---")
+
+        # ── RENDERIZAR TABLA DE DETALLE CON SUB-FILTROS ──
+        mostrar_tabla_detalle(processor, df_filtrado)
+
+    with tab2:
+        mostrar_graficos_avanzados(processor, df_filtrado)
 
 
 # ──────────────────────────────────────────────────────────────────────────
